@@ -1,5 +1,6 @@
 package com.example.uts
 
+import android.R.attr.onClick
 import android.content.Intent
 import androidx.credentials.CredentialManager
 import android.os.Bundle
@@ -9,6 +10,11 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.input.key.Key.Companion.I
+import androidx.compose.ui.platform.LocalContext
 import androidx.credentials.Credential
 import androidx.credentials.GetCredentialRequest
 import androidx.credentials.exceptions.GetCredentialException
@@ -16,12 +22,19 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
 import com.google.android.libraries.identity.googleid.GoogleIdTokenParsingException
+import io.github.jan.supabase.exceptions.RestException
+import io.github.jan.supabase.gotrue.auth
+import io.github.jan.supabase.gotrue.providers.Google
+import io.github.jan.supabase.gotrue.providers.builtin.IDToken
+import io.github.jan.supabase.postgrest.from
 import kotlinx.coroutines.*
 import java.security.MessageDigest
 import java.util.UUID
 
+
 class LoginActivity : AppCompatActivity() {
     private val RC_GOOGLE_SIGN_IN = 9001
+    private var rawNonce: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,8 +80,9 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+
     private fun signInWithGoogle() {
-        val rawNonce = UUID.randomUUID().toString()
+        rawNonce = UUID.randomUUID().toString()
         val hashedNonce = hashNonce(rawNonce)
 
         val googleIdOption = GetGoogleIdOption.Builder()
@@ -96,33 +110,68 @@ class LoginActivity : AppCompatActivity() {
             }
         }
     }
+
     private fun handleSignInResult(credential: Credential) {
         try {
             val googleIdTokenCredential = GoogleIdTokenCredential.createFrom(credential.data)
-            val idToken = googleIdTokenCredential.idToken
+            //val idToken = googleIdTokenCredential.idToken
 
-            Log.d("GoogleSignIn", "ID Token: $idToken")
-            Toast.makeText(this, "Sign in successful!", Toast.LENGTH_SHORT).show()
+            lifecycleScope.launch {
+                try {
+                    SupabaseClientProvider.client.auth.signInWith(
+                        IDToken
+                    ) {
+                        idToken = googleIdTokenCredential.idToken
+                        provider = Google
+                        nonce = rawNonce
+                    }
 
-            // Navigasi ke MainActivity
-            startActivity(Intent(this, MainActivity::class.java))
-            finish()
+                    runOnUiThread {
+                        Toast.makeText(this@LoginActivity, "Sign in successful!", Toast.LENGTH_SHORT).show()
+                        startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+                        finish()
+                    }
+
+                    lifecycleScope.launch {
+                        try {
+                            SupabaseClientProvider.client
+                                .from("bookmark")
+                                .insert(mapOf("content" to "hello from android"))
+                            Log.d("Database", "Bookmark inserted successfully")
+                        } catch (e: Exception) {
+                            Log.e("Database", "Failed to insert bookmark:", e)
+                        }
+                    }
+
+                } catch (e: Exception) {
+                    runOnUiThread {
+                        Toast.makeText(
+                            this@LoginActivity,
+                            "Supabase login failed: ${e.message}",
+                            Toast.LENGTH_LONG
+                        ).show()
+                        Log.e("SupabaseLogin", "Error details:", e)
+                    }
+                }
+            }
         } catch (e: Exception) {
             handleSignInError(e)
         }
     }
     private fun handleSignInError(exception: Exception) {
         Log.e("GoogleSignIn", "Error: ${exception.message}", exception)
-        when (exception) {
-            is GetCredentialException -> {
-                if (exception.message?.contains("The user canceled the operation") == true) {
-                    Toast.makeText(this, "Sign in cancelled", Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(this, "Sign in failed: ${exception.message}", Toast.LENGTH_LONG).show()
+        runOnUiThread {
+            when (exception) {
+                is GetCredentialException -> {
+                    if (exception.message?.contains("The user canceled the operation") == true) {
+                        Toast.makeText(this@LoginActivity, "Sign in cancelled", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(this@LoginActivity, "Sign in failed: ${exception.message}", Toast.LENGTH_LONG).show()
+                    }
                 }
-            }
-            else -> {
-                Toast.makeText(this, "Unexpected error occurred", Toast.LENGTH_SHORT).show()
+                else -> {
+                    Toast.makeText(this@LoginActivity, "Unexpected error occurred", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
@@ -133,5 +182,4 @@ class LoginActivity : AppCompatActivity() {
         val digest = md.digest(bytes)
         return digest.fold("") { str, it -> str + "%02x".format(it) }
     }
-
 }
