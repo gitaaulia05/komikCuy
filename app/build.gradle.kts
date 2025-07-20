@@ -50,20 +50,20 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
+    // SUPABASE
     implementation(platform("io.github.jan-tennert.supabase:bom:2.7.0-beta-1"))
     implementation("io.github.jan-tennert.supabase:postgrest-kt:2.7.0-beta-1")
-
     implementation("io.github.jan-tennert.supabase:gotrue-kt:2.7.0-beta-1")
-
-        implementation("androidx.credentials:credentials:1.3.0")
-    implementation("androidx.credentials:credentials-play-services-auth:1.3.0")
-
     implementation("io.ktor:ktor-client-android:3.0.0")
 
-        implementation("androidx.credentials:credentials-play-services-auth:1.3.0")
-        implementation("com.google.android.libraries.identity.googleid:googleid:1.1.1")
+    // Google sign in
+    implementation("androidx.credentials:credentials:1.3.0")
+    implementation("androidx.credentials:credentials-play-services-auth:1.3.0")
 
-    // Cpmpose
+    implementation("androidx.credentials:credentials-play-services-auth:1.3.0")
+    implementation("com.google.android.libraries.identity.googleid:googleid:1.1.1")
+
+    // Compose
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.9.2")
     implementation("androidx.activity:activity-compose:1.10.1")
     implementation(platform("androidx.compose:compose-bom:2023.10.01"))
