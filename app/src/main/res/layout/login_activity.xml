@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="24dp"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@color/dark_gray">
+
+    <ImageView
+        android:id="@+id/imageViewProfile"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/logopemob"
+        android:layout_gravity="center"
+        android:contentDescription="Profile Image" />
+
+    <TextView
+        android:id="@+id/textViewRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Login KomikCuy"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="30dp"
+        android:layout_marginTop="16dp" />
+
+    <EditText
+        android:id="@+id/etUsername"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:hint="Username"
+        android:textColorHint="@color/light_gray"
+        android:textColor="@color/white"
+        android:padding="12dp"
+        android:importantForAutofill="yes"
+        android:background="@color/medium_gray"
+        />
+
+    <EditText
+        android:id="@+id/etPassword"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:textColorHint="@color/light_gray"
+        android:textColor="@color/white"
+        android:padding="12dp"
+        android:layout_marginTop="16dp"
+        android:importantForAutofill="yes"
+        android:background="@color/medium_gray"
+        />
+
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:text="Login"
+        android:textColor="@color/white"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/sage"
+        />
+
+    <Button
+        android:id="@+id/btnsup"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:text="Login WIth Google"
+        android:textColor="@color/white"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/sage"
+        />
+
+    <TextView
+        android:id="@+id/tvRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Belum punya akun? Daftar di sini"
+        android:textColor="#1976D2"
+        android:layout_marginTop="24dp" />
+</LinearLayout>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/dark_gray"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="top">
+
+    <!-- Logo Placeholder -->
+    <ImageView
+        android:id="@+id/logoImage"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/logopemob"
+        android:contentDescription="App Logo"
+        android:layout_marginBottom="10dp"/>
+
+    <!-- Recently Updated Section -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Recently Updated"
+        android:textColor="@color/beige"
+        android:textSize="20sp"
+        android:layout_marginBottom="12dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recentRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="230dp"
+        android:background="@color/medium_gray"
+        android:padding="2dp"
+        android:layout_marginBottom="24dp"
+        android:clipToPadding="false" />
+
+    <!-- Popular Section -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Popular"
+        android:textColor="@color/beige"
+        android:textSize="20sp"
+        android:layout_marginBottom="12dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/popularRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:background="@color/medium_gray"
+        android:padding="8dp"
+        android:clipToPadding="false" />
+
+    <!-- Logout Button -->
+    <Button
+        android:id="@+id/logoutButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Logout"
+        android:textColor="@android:color/white"
+        android:backgroundTint="@color/sage"
+        android:layout_marginTop="24dp"
+        android:padding="14dp"
+        android:textSize="16sp"
+    android:elevation="4dp" />
+</LinearLayout>

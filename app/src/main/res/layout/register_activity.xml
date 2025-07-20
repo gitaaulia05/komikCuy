@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="24dp"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@color/dark_gray">
+
+    <ImageView
+        android:id="@+id/imageViewProfile"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/logopemob"
+        android:layout_gravity="center"
+        android:contentDescription="Profile Image" />
+
+    <TextView
+        android:id="@+id/textViewRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Register Akun"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="40dp"
+        android:layout_marginTop="16dp" />
+
+    <EditText
+        android:id="@+id/editTextUsername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Username"
+        android:textColorHint="@color/light_gray"
+        android:textColor="@color/white"
+        android:minHeight="55dp"
+        android:layout_marginBottom="20dp"
+        android:padding="12dp"
+        android:background="@color/medium_gray"/>
+
+    <EditText
+        android:id="@+id/editTextPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Password"
+        android:textColorHint="@color/light_gray"
+        android:textColor="@color/white"
+        android:inputType="textPassword"
+        android:minHeight="55dp"
+        android:layout_marginBottom="30dp"
+        android:padding="12dp"
+        android:background="@color/medium_gray"/>
+
+    <Button
+        android:id="@+id/buttonRegister"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginBottom="16dp"
+        android:text="Register"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/sage"/>
+
+    <Button
+        android:id="@+id/backToLogin"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:textColor="@color/white"
+        android:text="Kembali ke Login"
+        android:backgroundTint="@color/medium_gray"/>
+</LinearLayout>
