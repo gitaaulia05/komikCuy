@@ -7,4 +7,5 @@
     <color name="light_gray">#6f6f6f</color>
         <color name="sage">#948979</color>
         <color name="beige">#DFD0B8</color>
+    <color name="whiteTransparent">#33FFFFFF</color>
 </resources>
