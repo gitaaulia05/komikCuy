@@ -16,6 +16,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
 import androidx.annotation.NonNull;
+import androidx.lifecycle.lifecycleScope
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import io.github.jan.supabase.postgrest.postgrest
+import kotlinx.coroutines.launch
 import kotlin.jvm.java
 
 class MainActivity : AppCompatActivity() {
@@ -23,6 +28,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var recentRecycler: RecyclerView
     private lateinit var popularRecycler: RecyclerView
     private lateinit var bottomNavigationView: BottomNavigationView
+    private val komikList = mutableListOf<RecentKomik>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +40,8 @@ class MainActivity : AppCompatActivity() {
         recentRecycler = findViewById(R.id.recentRecycler)
         popularRecycler = findViewById(R.id.popularRecycler)
 
+        val recentAdapter = RecentAdapter(komikList)
+        recentRecycler.adapter = recentAdapter
 
         val sharedPref = getSharedPreferences("UserData", MODE_PRIVATE)
         val savedUsername = sharedPref.getString("username", "")
@@ -41,30 +49,10 @@ class MainActivity : AppCompatActivity() {
         // Layout Manager
         recentRecycler.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+
         popularRecycler.layoutManager = GridLayoutManager(this, 4)
 
         // Data List
-        val recentList = listOf(
-            RecentKomik(
-                R.drawable.komika,
-                "Komik A",
-                "Action, Comedy",
-                "Kisah penuh aksi mendebarkan yang dipadukan dengan humor konyol dan karakter unik. Setiap pertarungan dipenuhi kejutan, diiringi momen-momen lucu yang bikin ngakak di tengah ketegangan. Cocok buat kamu yang suka adrenaline rush tapi tetap pengen ketawa!."
-            ),
-            RecentKomik(
-                R.drawable.komikb,
-                "Komik B",
-                "Romance, Drama",
-                "Sebuah kisah cinta yang penuh lika-liku, diwarnai drama kehidupan yang menyentuh hati. Setiap pertemuan, perpisahan, dan pengorbanan akan mengaduk-aduk perasaan, membuat pembaca terbawa dalam perjalanan emosi dua insan yang dipertemukan takdir."
-            ),
-            RecentKomik(
-                R.drawable.komikc,
-                "Komik C",
-                "Fantasy",
-                "Jelajahi dunia penuh keajaiban, di mana sihir, makhluk legendaris, dan misteri kuno menanti di setiap sudut. Sebuah kisah petualangan epik yang membawa pembaca ke alam lain di luar batas imajinasi."
-            )
-        )
-
         val popularList = listOf(
             PopularKomik(
                 R.drawable.komikx,
@@ -117,7 +105,27 @@ class MainActivity : AppCompatActivity() {
         )
 
         // Set Adapter
-        recentRecycler.adapter = RecentAdapter(recentList)
+
+       // recent komik
+        lifecycleScope.launch {
+            try{
+                val response = SupabaseClientProvider.client.postgrest["komik"].select()
+                // Decode dengan json
+                val gson = Gson()
+                val listType = object : TypeToken<List<RecentKomik>>() {}.type
+                val result: List<RecentKomik> = gson.fromJson(response.data.toString(), listType)
+
+                // Update RecyclerView
+                komikList.clear()
+                komikList.addAll(result)
+                // reload adapter
+                recentAdapter.notifyDataSetChanged()
+
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+
         popularRecycler.adapter = PopularAdapter(popularList)
 
 

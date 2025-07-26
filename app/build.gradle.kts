@@ -77,4 +77,13 @@ dependencies {
 
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
 
+    // Glide
+    implementation ("com.github.bumptech.glide:glide:4.16.0")
+
+    // decode json
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
+    implementation("com.google.code.gson:gson:2.10.1")
+    kapt "com.github.bumptech.glide:compiler:4.16.0"
+
+
 }
