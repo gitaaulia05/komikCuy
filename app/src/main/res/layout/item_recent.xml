@@ -30,22 +30,5 @@
         android:textStyle="bold"
         android:layout_marginBottom="4dp"/>
 
-    <TextView
-        android:id="@+id/Genre"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Genres"
-        android:textColor="@color/sage"
-        android:textSize="12sp"
-        android:layout_marginBottom="2dp"/>
 
-    <TextView
-        android:id="@+id/Desc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Description"
-        android:textColor="@color/beige"
-        android:textSize="12sp"
-        android:maxLines="2"
-        android:ellipsize="end"/>
 </LinearLayout>

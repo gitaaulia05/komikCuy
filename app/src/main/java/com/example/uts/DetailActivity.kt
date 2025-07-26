@@ -15,8 +15,7 @@ class DetailActivity : AppCompatActivity() {
 
         val imgResource = intent.getIntExtra("coverImage", 0)
         val name = intent.getStringExtra("name")
-        val genres = intent.getStringExtra("genres")
-        val desc = intent.getStringExtra("desc")
+        val idKomik = intent.getIntExtra("id_komiks", -1)
 
         val chapterRecycler: RecyclerView = findViewById(R.id.chapterRecycler)
         chapterRecycler.layoutManager = LinearLayoutManager(this)
@@ -38,10 +37,10 @@ class DetailActivity : AppCompatActivity() {
         val txtName: TextView = findViewById(R.id.txtDetailName)
         val txtGenres: TextView = findViewById(R.id.txtDetailGenres)
         val txtDesc: TextView = findViewById(R.id.txtDetailDesc)
+        val txtId : TextView = findViewById(R.id.idKomik)
 
         cover.setImageResource(imgResource)
         txtName.text = name
-        txtGenres.text = genres
-        txtDesc.text = desc
+        txtId.text = idKomik.toString()
     }
 }

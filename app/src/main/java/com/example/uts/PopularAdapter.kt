@@ -14,8 +14,8 @@ class PopularAdapter(private val popularList: List<PopularKomik>) :
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val coverImage: ImageView = itemView.findViewById(R.id.coverImage)
         val txtName: TextView = view.findViewById(R.id.Nama)
-        val txtGenres: TextView = view.findViewById(R.id.Genre)
-        val txtDesc: TextView = view.findViewById(R.id.Desc)
+//        val txtGenres: TextView = view.findViewById(R.id.Genre)
+//        val txtDesc: TextView = view.findViewById(R.id.Desc)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -30,8 +30,8 @@ class PopularAdapter(private val popularList: List<PopularKomik>) :
         val comic = popularList[position]
         holder.coverImage.setImageResource(comic.image)
         holder.txtName.text = comic.name
-        holder.txtGenres.text = comic.genre
-        holder.txtDesc.text = comic.desc
+//        holder.txtGenres.text = comic.genre
+//        holder.txtDesc.text = comic.desc
 
         holder.itemView.setOnClickListener {
             val context = holder.itemView.context

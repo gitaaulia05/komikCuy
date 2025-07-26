@@ -40,6 +40,7 @@ class MainActivity : AppCompatActivity() {
         recentRecycler = findViewById(R.id.recentRecycler)
         popularRecycler = findViewById(R.id.popularRecycler)
 
+        // RECYLER ADAPTER NILAI DARI KOMIK LIST
         val recentAdapter = RecentAdapter(komikList)
         recentRecycler.adapter = recentAdapter
 
@@ -49,7 +50,6 @@ class MainActivity : AppCompatActivity() {
         // Layout Manager
         recentRecycler.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-
         popularRecycler.layoutManager = GridLayoutManager(this, 4)
 
         // Data List
@@ -131,6 +131,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    // BUTTON NAVIGASI
     override fun onResume() {
         super.onResume()
         buttonNavigation.setup(bottomNavigationView, this, R.id.menu_home)
