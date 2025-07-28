@@ -18,6 +18,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.credentials.Credential
 import androidx.credentials.GetCredentialRequest
 import androidx.credentials.exceptions.GetCredentialException
+import androidx.datastore.preferences.core.edit
 import androidx.lifecycle.lifecycleScope
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
@@ -114,11 +115,9 @@ class LoginActivity : AppCompatActivity() {
     private fun handleSignInResult(credential: Credential) {
         try {
             val googleIdTokenCredential = GoogleIdTokenCredential.createFrom(credential.data)
-            //val idToken = googleIdTokenCredential.idToken
-
             lifecycleScope.launch {
                 try {
-                    SupabaseClientProvider.client.auth.signInWith(
+                    val result = SupabaseClientProvider.client.auth.signInWith(
                         IDToken
                     ) {
                         idToken = googleIdTokenCredential.idToken
@@ -126,22 +125,28 @@ class LoginActivity : AppCompatActivity() {
                         nonce = rawNonce
                     }
 
+                    Log.d("AuthFlow", "Supabase login result: $result")
+
+                    val session = SupabaseClientProvider.client.auth.currentSessionOrNull() ?: throw Exception("Session not Available")
+
+                    Log.d("AuthFlow", "Token expires at: ${session.expiresAt}")
+
+                    val repository = UserPreferencesRepository(applicationContext.dataStore)
+                    repository.saveLoginData(
+                        idToken = session.accessToken ?: googleIdTokenCredential.idToken ,
+                        userId = session.user?.id ?: "",
+                        refreshToken = session.refreshToken ?: "",
+                        userName = session.user?.userMetadata?.get("full_name")?.toString() ?: "",
+                        userEmail = session.user?.email ?: "" ,
+                        userAvatar = session.user?.userMetadata?.get("avatar_url")?.toString() ?: "",
+                    )
+                    Log.d("AuthFlow", "Data saved to DataStore")
                     runOnUiThread {
                         Toast.makeText(this@LoginActivity, "Sign in successful!", Toast.LENGTH_SHORT).show()
                         startActivity(Intent(this@LoginActivity, MainActivity::class.java))
                         finish()
                     }
 
-                    lifecycleScope.launch {
-                        try {
-                            SupabaseClientProvider.client
-                                .from("bookmark")
-                                .insert(mapOf("content" to "hello from android"))
-                            Log.d("Database", "Bookmark inserted successfully")
-                        } catch (e: Exception) {
-                            Log.e("Database", "Failed to insert bookmark:", e)
-                        }
-                    }
 
                 } catch (e: Exception) {
                     runOnUiThread {
@@ -182,4 +187,6 @@ class LoginActivity : AppCompatActivity() {
         val digest = md.digest(bytes)
         return digest.fold("") { str, it -> str + "%02x".format(it) }
     }
+
+
 }

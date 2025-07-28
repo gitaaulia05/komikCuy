@@ -8,6 +8,18 @@
     android:padding="16dp"
     android:gravity="top">
 
+    <TextView
+        android:id="@+id/username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="USERNAME"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="30dp"
+        android:layout_marginTop="16dp" />
+
     <!-- Logout Button -->
         <Button
             android:id="@+id/logoutButton"

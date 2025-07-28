@@ -11,8 +11,12 @@ object SupabaseClientProvider {
             supabaseUrl = "https://gjiahecfesmuttvcpuiv.supabase.co",
             supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdqaWFoZWNmZXNtdXR0dmNwdWl2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI1MzY2NzYsImV4cCI6MjA2ODExMjY3Nn0.kSe95OtHvOaAIQru6eG2uosD0lEadUAtATLFGBLJebM"
         ) {
-            install(Auth)
+            install(Auth) {
+                alwaysAutoRefresh = false
+                autoSaveToStorage = true
+            }
             install(Postgrest)
+
         }
     }
 }
