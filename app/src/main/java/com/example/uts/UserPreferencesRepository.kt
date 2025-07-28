@@ -14,7 +14,6 @@ import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
 
 
-
 val Context.dataStore : DataStore<Preferences> by preferencesDataStore(name = "user_preferences")
 
 class UserPreferencesRepository(private val dataStore: DataStore<Preferences>)
@@ -47,6 +46,13 @@ class UserPreferencesRepository(private val dataStore: DataStore<Preferences>)
             preferences.clear()
         }
     }
+
+    suspend fun getUserId(): String? {
+        return dataStore.data.map { preferences ->
+            preferences[USER_ID]
+        }.firstOrNull()
+    }
+
 
     suspend fun getUserEmail(): String? {
         return dataStore.data.map { preferences ->

@@ -12,7 +12,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
+import com.example.uts.LoginActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import io.github.jan.supabase.gotrue.auth
+import io.github.jan.supabase.gotrue.providers.Google
+import io.github.jan.supabase.gotrue.providers.builtin.IDToken
 import kotlinx.coroutines.launch
 
 
@@ -31,7 +35,6 @@ class Profile : AppCompatActivity() {
 
         lifecycleScope.launch {
             val repository = UserPreferencesRepository(applicationContext.dataStore)
-
             val userName = repository.getUserName()
             Log.d("MainActivity", "User Name: $userName")
 
@@ -42,12 +45,25 @@ class Profile : AppCompatActivity() {
         }
         // Logout event klik
         logoutButton.setOnClickListener {
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
-            finish()
 
-            Toast.makeText(this, "Sampai Jumpa ", Toast.LENGTH_SHORT).show()
-            Log.d("LOGOUT", "Logout ")
+            lifecycleScope.launch {
+                try {
+                    // Logout
+                    SupabaseClientProvider.client.auth.signOut()
+                    val repository = UserPreferencesRepository(applicationContext.dataStore)
+                    repository.clearLoginData()
+                    Log.e("AuthFlow", "Masuk")
+
+                    //  Redirect ke LoginActivity
+                    runOnUiThread {
+                        startActivity(Intent(this@Profile, LoginActivity::class.java))
+                        finish()
+                    }
+
+                } catch (e: Exception) {
+                    Log.e("AuthFlow", "Logout error: ${e.message}")
+                }
+            }
         }
 
     }

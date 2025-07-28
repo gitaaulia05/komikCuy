@@ -140,9 +140,8 @@ class LoginActivity : AppCompatActivity() {
                         userEmail = session.user?.email ?: "" ,
                         userAvatar = session.user?.userMetadata?.get("avatar_url")?.toString() ?: "",
                     )
-                    Log.d("AuthFlow", "Data saved to DataStore")
                     runOnUiThread {
-                        Toast.makeText(this@LoginActivity, "Sign in successful!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@LoginActivity, "Login Berhasil!", Toast.LENGTH_SHORT).show()
                         startActivity(Intent(this@LoginActivity, MainActivity::class.java))
                         finish()
                     }

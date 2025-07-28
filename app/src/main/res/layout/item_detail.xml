@@ -3,6 +3,7 @@
     android:background="@color/dark_gray"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="16dp">
 
     <LinearLayout
@@ -73,6 +74,17 @@
             android:lineSpacingExtra="4dp"
             android:textAlignment="center"
             android:padding="8dp"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnDapus"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:text="Masukkan Kedalam Daftar Pustaka"
+            android:textColor="@color/white"
+            android:layout_margin="20dp"
+            android:backgroundTint="@color/sage"
+            app:cornerRadius="8dp" />
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/chapterRecycler"
