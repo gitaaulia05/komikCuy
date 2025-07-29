@@ -18,10 +18,9 @@
             android:layout_height="260dp"
             android:layout_marginTop="30dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/komika"
             android:layout_marginBottom="16dp"
+            android:background="@drawable/image_border"
             android:contentDescription="Comic Cover"
-            android:background="@drawable/komika"
             android:elevation="4dp"
             android:clipToOutline="true"/>
 

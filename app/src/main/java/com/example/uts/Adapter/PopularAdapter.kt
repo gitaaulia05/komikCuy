@@ -1,4 +1,4 @@
-package com.example.uts
+package com.example.uts.Adapter
 
 import android.content.Intent
 import android.view.LayoutInflater
@@ -7,6 +7,9 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.uts.DetailActivity
+import com.example.uts.Model.PopularKomik
+import com.example.uts.R
 
 class PopularAdapter(private val popularList: List<PopularKomik>) :
     RecyclerView.Adapter<PopularAdapter.ViewHolder>() {

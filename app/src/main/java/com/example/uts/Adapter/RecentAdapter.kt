@@ -1,4 +1,4 @@
-package com.example.uts
+package com.example.uts.Adapter
 
 import android.content.Intent
 import android.view.LayoutInflater
@@ -8,6 +8,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.uts.DetailActivity
+import com.example.uts.R
+import com.example.uts.Model.RecentKomik
 
 class RecentAdapter(private val recentList: List<RecentKomik>) :
     RecyclerView.Adapter<RecentAdapter.ViewHolder>() {

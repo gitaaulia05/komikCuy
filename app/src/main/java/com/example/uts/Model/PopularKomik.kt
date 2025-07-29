@@ -1,4 +1,4 @@
-package com.example.uts
+package com.example.uts.Model
 
 data class PopularKomik (
     val image: Int,

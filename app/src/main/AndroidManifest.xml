@@ -27,7 +27,11 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="false" />
+            android:exported="false">
+        </activity>
+        <activity android:name=".AddEditComicActivity"/>
+        <activity android:name=".AdminDashboardActivity"/>
+        <activity android:name=".AddChapterActivity" />
         <activity
             android:name=".DetailActivity"
             android:exported="false" />
@@ -36,7 +40,6 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

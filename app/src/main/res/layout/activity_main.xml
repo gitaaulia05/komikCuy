@@ -54,13 +54,6 @@
         android:padding="8dp"
         android:clipToPadding="false" />
 
-
-
-    <!--    button navigasi tetap dibawah-->
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
 <!--    Navigation button-->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:background="@color/dark_gray"

@@ -1,0 +1,102 @@
+<!-- admin_comic_item.xml -->
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp"
+    app:cardBackgroundColor="@color/medium_gray"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Comic Image Preview -->
+        <ImageView
+            android:id="@+id/ivComicCover"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+
+            android:background="@color/dark_gray"
+            android:contentDescription="Comic cover"
+            android:layout_marginBottom="12dp"/>
+
+        <!-- Comic Title -->
+        <TextView
+            android:id="@+id/tvComicTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/beige"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            tools:text="Sample Comic Title"/>
+
+        <!-- Comic Details Row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:id="@+id/tvComicGenre"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/light_gray"
+                android:textSize="12sp"
+                tools:text="Genre"/>
+
+            <TextView
+                android:id="@+id/tvChapterCount"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/light_gray"
+                android:textSize="12sp"
+                android:gravity="end"
+                tools:text="5 Chapters"/>
+        </LinearLayout>
+
+        <!-- Action Buttons -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp"
+            android:gravity="center_vertical">
+
+            <!-- Edit Button -->
+            <Button
+                android:id="@+id/btnEdit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"
+                android:text="Edit"
+                android:textColor="@color/black"
+                android:backgroundTint="@color/beige"/>
+
+            <!-- Delete Button -->
+            <Button
+                android:id="@+id/btnDelete"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Delete"
+                android:textColor="@android:color/white"
+                android:backgroundTint="@color/dark_gray"/>
+        </LinearLayout>
+        <Button
+            android:id="@+id/btnAddChapter"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="Add Chapter" />
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

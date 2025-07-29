@@ -1,12 +1,14 @@
-package com.example.uts
+package com.example.uts.Adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.uts.Model.Chapter
+import com.example.uts.R
 
-class ChapterAdapter(private val chapterList: List<ChapterData>) :
+class ChapterAdapter(private val chapterList: List<Chapter>) :
     RecyclerView.Adapter<ChapterAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -23,6 +25,6 @@ class ChapterAdapter(private val chapterList: List<ChapterData>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val chapter = chapterList[position]
-        holder.txtChapterTitle.text = chapter.title
+        holder.txtChapterTitle.text = chapter.nama_chapter
     }
 }

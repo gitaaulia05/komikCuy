@@ -20,27 +20,37 @@
         android:layout_marginBottom="30dp"
         android:layout_marginTop="16dp" />
 
-    <!-- Logout Button -->
-        <Button
-            android:id="@+id/logoutButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Logout"
-            android:textColor="@android:color/white"
-            android:backgroundTint="@color/sage"
-            android:layout_marginTop="24dp"
-            android:padding="14dp"
-            android:textSize="16sp"
-        android:elevation="4dp" />
+    <Button
+        android:id="@+id/btnAdminDashboard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:elevation="4dp"
+        android:padding="14dp"
+        android:text="Admin Dashboard" />
 
 
-<!--    button navigasi tetap dibawah-->
+    <!--    button navigasi tetap dibawah-->
+
+
     <View
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />
 
-<com.google.android.material.bottomnavigation.BottomNavigationView
+    <Button
+        android:id="@+id/logoutButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="@color/sage"
+        android:elevation="4dp"
+        android:padding="14dp"
+        android:text="Logout"
+        android:textColor="@android:color/white"
+        android:textSize="16sp" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
         android:background="@color/dark_gray"
         app:itemTextColor="@color/white"
         app:itemIconTint="@color/white"
