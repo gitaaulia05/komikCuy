@@ -1,8 +1,7 @@
+// File: /uts/LoginActivity.kt
 package com.example.uts
 
-import android.R.attr.onClick
 import android.content.Intent
-import androidx.credentials.CredentialManager
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -10,68 +9,82 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.input.key.Key.Companion.I
-import androidx.compose.ui.platform.LocalContext
 import androidx.credentials.Credential
+import androidx.credentials.CredentialManager
 import androidx.credentials.GetCredentialRequest
 import androidx.credentials.exceptions.GetCredentialException
-import androidx.datastore.preferences.core.edit
 import androidx.lifecycle.lifecycleScope
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
-import com.google.android.libraries.identity.googleid.GoogleIdTokenParsingException
-import io.github.jan.supabase.exceptions.RestException
 import io.github.jan.supabase.gotrue.auth
 import io.github.jan.supabase.gotrue.providers.Google
+import io.github.jan.supabase.gotrue.providers.builtin.Email
 import io.github.jan.supabase.gotrue.providers.builtin.IDToken
-import io.github.jan.supabase.postgrest.from
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.security.MessageDigest
 import java.util.UUID
 
-
 class LoginActivity : AppCompatActivity() {
-    private val RC_GOOGLE_SIGN_IN = 9001
     private var rawNonce: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_activity)
 
-        val Username = findViewById<EditText>(R.id.etUsername)
-        val Password = findViewById<EditText>(R.id.etPassword)
+        val etEmail = findViewById<EditText>(R.id.etEmail)
+        val etPassword = findViewById<EditText>(R.id.etPassword)
         val btnLogin = findViewById<Button>(R.id.btnLogin)
         val btnGoogle = findViewById<Button>(R.id.btnsup)
         val tvRegister = findViewById<TextView>(R.id.tvRegister)
 
         btnLogin.setOnClickListener {
-            val inputUsername = Username.text.toString()
-            val inputPassword = Password.text.toString()
+            val email = etEmail.text.toString().trim()
+            val password = etPassword.text.toString().trim()
 
-            // Ambil data dari SharedPreferences
-            val sharedPref = getSharedPreferences("UserData", MODE_PRIVATE)
-            val savedUsername = sharedPref.getString("username", "")
-            val savedPassword = sharedPref.getString("password", "")
+            if (email.isEmpty() || password.isEmpty()) {
+                Toast.makeText(this, "Email dan Password tidak boleh kosong", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
 
-            if (inputUsername == savedUsername && inputPassword == savedPassword) {
-                Toast.makeText(this, "Selamat Datang! $inputUsername", Toast.LENGTH_SHORT).show()
-                Log.d("LOGIN", "Login sukses untuk user $inputUsername")
-
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
-                finish()
-            } else {
-                Toast.makeText(this, "Username atau Password salah", Toast.LENGTH_SHORT).show()
-                Log.d("LOGIN", "Login gagal untuk user $inputUsername")
+            lifecycleScope.launch {
+                try {
+                    SupabaseClientProvider.client.auth.signInWith(Email) {
+                        this.email = email
+                        this.password = password
+                    }
+                    val session = SupabaseClientProvider.client.auth.currentSessionOrNull()
+                    if (session != null) {
+                        val repository = UserPreferencesRepository(applicationContext.dataStore)
+                        repository.saveLoginData(
+                            idToken = session.accessToken,
+                            userId = session.user?.id ?: "",
+                            refreshToken = session.refreshToken ?: "",
+                            userName = session.user?.userMetadata?.get("full_name")?.toString() ?: session.user?.email ?: "",
+                            userEmail = session.user?.email ?: "",
+                            userAvatar = session.user?.userMetadata?.get("avatar_url")?.toString() ?: ""
+                        )
+                        withContext(Dispatchers.Main) {
+                            Toast.makeText(this@LoginActivity, "Login Berhasil!", Toast.LENGTH_SHORT).show()
+                            startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+                            finish()
+                        }
+                    } else {
+                        withContext(Dispatchers.Main) {
+                            Toast.makeText(this@LoginActivity, "Login failed: No session found.", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                } catch (e: Exception) {
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(this@LoginActivity, "Login failed: ${e.message}", Toast.LENGTH_LONG).show()
+                        Log.e("LoginActivity", "Error during email/password login: ${e.message}", e)
+                    }
+                }
             }
         }
 
-
-        val btnGoogleSignIn = btnGoogle
-        btnGoogleSignIn.setOnClickListener {
+        btnGoogle.setOnClickListener {
             signInWithGoogle()
         }
 
@@ -80,7 +93,6 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
-
 
     private fun signInWithGoogle() {
         rawNonce = UUID.randomUUID().toString()
@@ -133,22 +145,20 @@ class LoginActivity : AppCompatActivity() {
 
                     val repository = UserPreferencesRepository(applicationContext.dataStore)
                     repository.saveLoginData(
-                        idToken = session.accessToken ?: googleIdTokenCredential.idToken ,
+                        idToken = session.accessToken,
                         userId = session.user?.id ?: "",
                         refreshToken = session.refreshToken ?: "",
-                        userName = session.user?.userMetadata?.get("full_name")?.toString() ?: "",
-                        userEmail = session.user?.email ?: "" ,
+                        userName = session.user?.userMetadata?.get("full_name")?.toString() ?: session.user?.email ?: "",
+                        userEmail = session.user?.email ?: "",
                         userAvatar = session.user?.userMetadata?.get("avatar_url")?.toString() ?: "",
                     )
-                    runOnUiThread {
+                    withContext(Dispatchers.Main) {
                         Toast.makeText(this@LoginActivity, "Login Berhasil!", Toast.LENGTH_SHORT).show()
                         startActivity(Intent(this@LoginActivity, MainActivity::class.java))
                         finish()
                     }
-
-
                 } catch (e: Exception) {
-                    runOnUiThread {
+                    withContext(Dispatchers.Main) {
                         Toast.makeText(
                             this@LoginActivity,
                             "Supabase login failed: ${e.message}",
@@ -162,15 +172,16 @@ class LoginActivity : AppCompatActivity() {
             handleSignInError(e)
         }
     }
+
     private fun handleSignInError(exception: Exception) {
         Log.e("GoogleSignIn", "Error: ${exception.message}", exception)
         runOnUiThread {
             when (exception) {
                 is GetCredentialException -> {
-                    if (exception.message?.contains("The user canceled the operation") == true) {
-                        Toast.makeText(this@LoginActivity, "Sign in cancelled", Toast.LENGTH_SHORT).show()
+                    if (exception.message?.contains("user membatalkan login") == true) {
+                        Toast.makeText(this@LoginActivity, "Login dibatalkan", Toast.LENGTH_SHORT).show()
                     } else {
-                        Toast.makeText(this@LoginActivity, "Sign in failed: ${exception.message}", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this@LoginActivity, "Login gagal: ${exception.message}", Toast.LENGTH_LONG).show()
                     }
                 }
                 else -> {
@@ -186,6 +197,4 @@ class LoginActivity : AppCompatActivity() {
         val digest = md.digest(bytes)
         return digest.fold("") { str, it -> str + "%02x".format(it) }
     }
-
-
 }

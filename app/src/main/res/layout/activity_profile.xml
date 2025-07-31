@@ -29,14 +29,24 @@
         android:padding="14dp"
         android:text="Admin Dashboard" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bookmark"
+        android:textColor="@color/sage"
+        android:textSize="18sp"
+        android:layout_marginBottom="8dp"
+        android:textStyle="bold" />
 
-    <!--    button navigasi tetap dibawah-->
-
-
-    <View
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewBookmark"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_height="350dp"
+        android:orientation="horizontal"
+        android:padding="4dp"
+        android:layout_marginBottom="50dp"
+        android:background="@color/medium_gray" />
+
 
     <Button
         android:id="@+id/logoutButton"

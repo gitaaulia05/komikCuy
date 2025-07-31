@@ -21,7 +21,14 @@ KomikCuy adalah aplikasi baca komik digital yang menyajikan koleksi komik menari
 > Tambahkan screenshot aplikasi di sini  
 > ![screenshot](screenshots/home.png)
 
-## 🔧 Cara Menjalankan Proyek
+## 🔧 Update 1.1
+> Login/Register Fix (Email Only)
+> Tampilan Bookmark
+> Crud Fixed
+> Tampilan Jumlah Chapter
+> Search Engine (Belum Berfungsi Baik)
+
+## 📖 Cara Menjalankan Proyek
 
 1. Clone repositori ini:
    ```bash

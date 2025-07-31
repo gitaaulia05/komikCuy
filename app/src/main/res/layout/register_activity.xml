@@ -27,10 +27,10 @@
         android:layout_marginTop="16dp" />
 
     <EditText
-        android:id="@+id/editTextUsername"
+        android:id="@+id/editTextEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Username"
+        android:hint="Email"
         android:textColorHint="@color/light_gray"
         android:textColor="@color/white"
         android:minHeight="55dp"
@@ -67,4 +67,11 @@
         android:textColor="@color/white"
         android:text="Kembali ke Login"
         android:backgroundTint="@color/medium_gray"/>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_marginTop="20dp"/>
 </LinearLayout>

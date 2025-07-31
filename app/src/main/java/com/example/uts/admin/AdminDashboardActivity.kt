@@ -36,7 +36,6 @@ class AdminDashboardActivity : AppCompatActivity() {
         adminComicAdapter = AdminComicAdapter(
             komikList, this,
             onComicDeleted = {
-                //refresh the list after deletion
                 fetchComics()
             },
             onComicEdited = { comic ->
@@ -69,7 +68,7 @@ class AdminDashboardActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        fetchComics() // Refresh list when returning to this activity
+        fetchComics()
     }
 
     private fun fetchComics() {

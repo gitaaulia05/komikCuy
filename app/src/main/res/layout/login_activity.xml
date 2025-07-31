@@ -28,10 +28,10 @@
         android:layout_marginTop="16dp" />
 
     <EditText
-        android:id="@+id/etUsername"
+        android:id="@+id/etEmail"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:hint="Username"
+        android:hint="Email"
         android:textColorHint="@color/light_gray"
         android:textColor="@color/white"
         android:padding="12dp"

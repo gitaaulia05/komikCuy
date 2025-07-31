@@ -1,4 +1,3 @@
-// File: /uts/Adapter/AdminComicAdapter.kt
 package com.example.uts.Adapter
 
 import android.app.AlertDialog
@@ -28,7 +27,7 @@ import kotlinx.coroutines.withContext
 class AdminComicAdapter(
     private val comicList: MutableList<RecentKomik>,
     private val context: Context,
-    private val onComicDeleted: (RecentKomik) -> Unit, // Tetap pertahankan callback untuk notifikasi ke Activity
+    private val onComicDeleted: (RecentKomik) -> Unit,
     private val onComicEdited: (RecentKomik) -> Unit,
     private val onAddChapterClicked: (RecentKomik) -> Unit
 ) : RecyclerView.Adapter<AdminComicAdapter.ViewHolder>() {
@@ -77,7 +76,6 @@ class AdminComicAdapter(
             .load(comic.gambar_komik)
             .into(holder.ivComicCover)
 
-        // Pastikan konteks adalah AppCompatActivity untuk lifecycleScope
         if (holder.itemView.context is AppCompatActivity) {
             (holder.itemView.context as AppCompatActivity).lifecycleScope.launch {
                 val chapterCount = getChapterCountForComic(comic.id_komik)

@@ -23,7 +23,7 @@ class AddEditComicActivity : AppCompatActivity() {
     private lateinit var etComicGenre: EditText
     private lateinit var btnSaveComic: Button
 
-    private var comicId: Int = -1 // -1 indicates new comic, otherwise it's an existing comic ID
+    private var comicId: Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +36,6 @@ class AddEditComicActivity : AppCompatActivity() {
         etComicImageUrl = findViewById(R.id.etComicImageUrl)
         btnSaveComic = findViewById(R.id.btnSaveComic)
 
-        // Check if we are editing an existing comic
         comicId = intent.getIntExtra("comic_id", -1)
         if (comicId != -1) {
             tvAddEditTitle.text = "Edit Comic"
@@ -77,7 +76,6 @@ class AddEditComicActivity : AppCompatActivity() {
                     SupabaseClientProvider.client.postgrest["komik"].insert(newComic)
                     Toast.makeText(this@AddEditComicActivity, "Comic added successfully!", Toast.LENGTH_SHORT).show()
                 } else {
-                    // Update existing comic
                     SupabaseClientProvider.client.postgrest.from("komik")
                         .update(
                             {

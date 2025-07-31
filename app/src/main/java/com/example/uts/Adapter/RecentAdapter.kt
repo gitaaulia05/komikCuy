@@ -42,7 +42,9 @@ class RecentAdapter(private val recentList: List<RecentKomik>) :
             val intent = Intent(context, DetailActivity::class.java).apply {
                 putExtra("coverImage", comic.gambar_komik)
                 putExtra("name", comic.judul_komik)
-                putExtra("id_komiks", comic.id_komik)
+                putExtra("id_komik", comic.id_komik)
+                putExtra("genre", comic.genre)
+                putExtra("desc", comic.desc)
 
             }
             context.startActivity(intent)

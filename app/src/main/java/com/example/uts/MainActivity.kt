@@ -44,8 +44,7 @@ class MainActivity : AppCompatActivity() {
 
 
         // Layout Manager
-        recentRecycler.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        recentRecycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         popularRecycler.layoutManager = GridLayoutManager(this, 4)
 
         // Fetch Recent Comics
@@ -77,7 +76,6 @@ class MainActivity : AppCompatActivity() {
 
             } catch (e: Exception) {
                 Log.e("MainActivity", "Error fetching comics: ${e.message}", e)
-                // Tampilkan Toast atau pesan error ke pengguna
             }
         }
     }
