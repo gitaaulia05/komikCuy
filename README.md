@@ -22,11 +22,11 @@ KomikCuy adalah aplikasi baca komik digital yang menyajikan koleksi komik menari
 > ![screenshot](screenshots/home.png)
 
 ## 🔧 Update 1.1
-> Login/Register Fix (Email Only)
-> Tampilan Bookmark
-> Crud Fixed
-> Tampilan Jumlah Chapter
-> Search Engine (Belum Berfungsi Baik)
+- Login/Register Fix (Email Only)
+- Tampilan Bookmark
+- Crud Fixed
+- Tampilan Jumlah Chapter
+- Search Engine (Belum Berfungsi Baik)
 
 ## 📖 Cara Menjalankan Proyek
 
