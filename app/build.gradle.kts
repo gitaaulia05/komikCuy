@@ -11,6 +11,7 @@ android {
     namespace = "com.example.uts"
     compileSdk = 35
 
+
     defaultConfig {
         applicationId = "com.example.uts"
         minSdk = 24
@@ -22,6 +23,9 @@ android {
     }
 
     buildTypes {
+        debug {
+            signingConfig = signingConfigs.getByName("debug")
+        }
         release {
             isMinifyEnabled = false
             proguardFiles(
@@ -30,6 +34,16 @@ android {
             )
         }
     }
+
+    signingConfigs {
+        getByName("debug") {
+            storeFile = file("shared-debug.keystore")
+            storePassword = "android"
+            keyAlias = "androiddebugkey"
+            keyPassword = "android"
+        }
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11

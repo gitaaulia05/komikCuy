@@ -67,7 +67,7 @@
         android:id="@+id/btnsup"
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:text="Login WIth Google"
+        android:text="Login With Google"
         android:textColor="@color/white"
         android:layout_marginTop="20dp"
         android:backgroundTint="@color/sage"

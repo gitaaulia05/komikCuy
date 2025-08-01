@@ -181,10 +181,18 @@ class LoginActivity : AppCompatActivity() {
                     if (exception.message?.contains("user membatalkan login") == true) {
                         Toast.makeText(this@LoginActivity, "Login dibatalkan", Toast.LENGTH_SHORT).show()
                     } else {
+                        Log.e("GoogleSignIn", "Login failed", exception)
+                        Log.e("GoogleSignIn", "Exception type: ${exception.javaClass.simpleName}")
+                        Log.e("GoogleSignIn", "Exception message: ${exception.message}")
+                        Log.e("GoogleSignIn", "Exception cause: ${exception.cause}")
                         Toast.makeText(this@LoginActivity, "Login gagal: ${exception.message}", Toast.LENGTH_LONG).show()
                     }
                 }
                 else -> {
+                    Log.e("GoogleSignIn", "Login failed", exception)
+                    Log.e("GoogleSignIn", "Exception type: ${exception.javaClass.simpleName}")
+                    Log.e("GoogleSignIn", "Exception message: ${exception.message}")
+                    Log.e("GoogleSignIn", "Exception cause: ${exception.cause}")
                     Toast.makeText(this@LoginActivity, "Unexpected error occurred", Toast.LENGTH_SHORT).show()
                 }
             }
