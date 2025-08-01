@@ -99,7 +99,7 @@ class LoginActivity : AppCompatActivity() {
         val hashedNonce = hashNonce(rawNonce)
 
         val googleIdOption = GetGoogleIdOption.Builder()
-            .setServerClientId("550699213716-ln5hffjr0utg5a9evcm0jt939qpbefrp.apps.googleusercontent.com")
+            .setServerClientId("550699213716-fppik81ilut31ouq42kppo1ujblpg9td.apps.googleusercontent.com")
             .setFilterByAuthorizedAccounts(false)
             .setAutoSelectEnabled(true)
             .setNonce(hashedNonce)
