@@ -27,6 +27,11 @@ KomikCuy adalah aplikasi baca komik digital yang menyajikan koleksi komik menari
 - Crud Fixed
 - Tampilan Jumlah Chapter
 - Search Engine (Belum Berfungsi Baik)
+  
+ ## 🔧 Update 1.2
+- Login/Register GoogleSignIn Fixed
+- Fitur Customer Service
+- Tampilan Popular
 
 ## 📖 Cara Menjalankan Proyek
 
