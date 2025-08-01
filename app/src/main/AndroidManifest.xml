@@ -32,6 +32,7 @@
         <activity android:name=".AddEditComicActivity"/>
         <activity android:name=".AdminDashboardActivity"/>
         <activity android:name=".AddChapterActivity" />
+        <activity android:name=".AdminPengajuanActivity" />
         <activity
             android:name=".DetailActivity"
             android:exported="false" />

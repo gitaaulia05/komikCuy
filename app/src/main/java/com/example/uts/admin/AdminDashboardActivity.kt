@@ -22,6 +22,7 @@ class AdminDashboardActivity : AppCompatActivity() {
 
     private lateinit var adminComicRecycler: RecyclerView
     private lateinit var btnAddComic: Button
+    private lateinit var btnCustomerService: Button
     private lateinit var adminComicAdapter: AdminComicAdapter
     private val komikList = mutableListOf<RecentKomik>()
 
@@ -62,7 +63,12 @@ class AdminDashboardActivity : AppCompatActivity() {
             val intent = Intent(this, AddEditComicActivity::class.java)
             startActivity(intent)
         }
+        btnCustomerService = findViewById(R.id.btnCustomerService)
 
+        btnCustomerService.setOnClickListener {
+            val intent = Intent(this, AdminPengajuanActivity::class.java)
+            startActivity(intent)
+        }
         fetchComics()
     }
 

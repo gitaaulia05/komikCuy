@@ -21,7 +21,7 @@
             android:layout_height="80dp"
             android:layout_marginTop="10dp"
             android:src="@drawable/aww"
-            android:scaleType="centerCrop"/>
+            android:scaleType="centerCrop" />
 
         <TextView
             android:layout_width="10dp"
@@ -35,17 +35,18 @@
     </LinearLayout>
 
     <!-- Comic List Section -->
-
     <LinearLayout
-        android:layout_width="375dp"
-        android:layout_height="60dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
+        android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:weightSum="3">
 
         <TextView
-            android:layout_width="196dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1.2"
             android:text="Daftar Komik"
             android:textColor="@color/beige"
             android:textSize="20sp"
@@ -53,11 +54,22 @@
 
         <Button
             android:id="@+id/btnAddComic"
-            android:layout_width="160dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="8dp"
+            android:layout_weight="0.9"
             android:backgroundTint="@color/medium_gray"
             android:text="Tambah"
+            android:textColor="@color/beige" />
+
+        <Button
+            android:id="@+id/btnCustomerService"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_weight="0.9"
+            android:backgroundTint="@color/medium_gray"
+            android:text="CS"
             android:textColor="@color/beige" />
     </LinearLayout>
 

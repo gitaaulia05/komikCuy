@@ -2,10 +2,4 @@
     <string name="app_name">KomikCuy</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string-array name="jenis_masalah_items">
-        <item>Bug</item>
-        <item>Error</item>
-        <item>Masukan</item>
-        <item>Lainnya</item>
-    </string-array>
 </resources>
