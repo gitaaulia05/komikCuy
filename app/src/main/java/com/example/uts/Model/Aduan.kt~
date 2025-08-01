@@ -1,0 +1,12 @@
+package com.example.uts.Model
+
+import kotlinx.serialization.Serializable
+
+@Serializable
+data class Aduan(
+    val id: String,
+    val judul_pengajuan: String,
+    val deskripsi: String,
+    val jenis_masalah: String,
+    val status: String
+)

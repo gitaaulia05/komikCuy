@@ -1,28 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/dark_gray"
+    android:id="@+id/layoutForm"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/dark_gray_dua"
     android:orientation="vertical"
     android:padding="16dp"
     android:gravity="top">
 
-<!--    button navigasi tetap dibawah-->
+    <!-- Judul Pengajuan -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Judul Pengajuan"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:layout_marginTop="8dp"/>
+
+    <EditText
+        android:id="@+id/etJudul"
+        android:hint="Masukkan judul"
+        android:textColorHint="@color/white"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"/>
+
+    <!-- Deskripsi Masalah -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Deskripsi Masalah"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:layout_marginTop="4dp"/>
+
+    <EditText
+        android:id="@+id/etDeskripsi"
+        android:hint="Ceritakan masalah Anda"
+        android:textColorHint="@color/white"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minLines="4"
+        android:gravity="top"
+        android:layout_marginBottom="12dp"/>
+
+    <!-- Jenis Masalah -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Jenis Masalah"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:layout_marginTop="4dp"/>
+
+    <Spinner
+        android:id="@+id/spinnerJenis"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/beige"
+        android:theme="@style/SpinnerDarkTheme"
+        android:layout_marginBottom="16dp"
+        android:entries="@array/jenis_masalah_items"/>
+
+    <!-- Tombol Kirim -->
+    <Button
+        android:id="@+id/btnKirim"
+        android:text="Kirim Pengajuan"
+        android:textAllCaps="false"
+        android:textStyle="bold"
+        android:backgroundTint="@color/white"
+        android:textColor="@color/dark_gray"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Spacer untuk bottom nav tetap di bawah -->
     <View
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />
 
+    <!-- Bottom Navigation -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:background="@color/dark_gray"
-        app:itemTextColor="@color/white"
-        app:itemIconTint="@color/white"
         android:id="@+id/bottom_nav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/dark_gray_dua"
         app:menu="@menu/menu_bottom_nav"
-        app:itemRippleColor="@color/whiteTransparent"
-        />
-
+        app:itemTextColor="@color/white"
+        app:itemIconTint="@color/white"
+        app:itemRippleColor="@color/whiteTransparent"/>
 </LinearLayout>
