@@ -95,7 +95,7 @@ dependencies {
     implementation ("com.github.bumptech.glide:glide:4.16.0")
 
     // decode json
-  //  implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
+    //  implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
     implementation("com.google.code.gson:gson:2.10.1")
 

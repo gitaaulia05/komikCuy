@@ -16,6 +16,7 @@ import com.google.gson.reflect.TypeToken
 import io.github.jan.supabase.postgrest.postgrest
 import kotlinx.coroutines.launch
 import android.util.Log
+import kotlin.Int
 
 class MainActivity : AppCompatActivity() {
 
@@ -42,12 +43,12 @@ class MainActivity : AppCompatActivity() {
         val popularAdapter = PopularAdapter(popularKomikList)
         popularRecycler.adapter = popularAdapter
 
-
         // Layout Manager
         recentRecycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        popularRecycler.layoutManager = GridLayoutManager(this, 4)
+//        popularRecycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        popularRecycler.layoutManager = GridLayoutManager(this, 2)
 
-        // Fetch Recent Comics
+
         lifecycleScope.launch {
             try {
                 val response = SupabaseClientProvider.client.postgrest["komik"].select()
@@ -62,15 +63,29 @@ class MainActivity : AppCompatActivity() {
 
                 popularKomikList.clear()
                 result.forEach { recentComic ->
-                    popularKomikList.add(
-                        PopularKomik(
-                            image = recentComic.gambar_komik.toInt(),
-                            name = recentComic.judul_komik,
-                            genre = recentComic.genre,
-                            desc = recentComic.desc
-                        )
-                    )
+                    if (recentComic.is_popular) {
+                        val id = recentComic.id_komik
+                        val image = recentComic.gambar_komik ?: ""
+                        val name = recentComic.judul_komik ?: ""
+                        val genre = recentComic.genre ?: ""
+                        val desc = recentComic.desc ?: ""
+
+                        if (image.isNotEmpty() && name.isNotEmpty() && genre.isNotEmpty() && desc.isNotEmpty()) {
+                            popularKomikList.add(
+                                PopularKomik(
+                                    id_komik = id,
+                                    image = image,
+                                    name = name,
+                                    genre = genre,
+                                    desc = desc
+                                )
+                            )
+                        } else {
+                            Log.w("MainActivity", "Comic ${name} has empty fields and will be skipped.")
+                        }
+                    }
                 }
+
                 popularAdapter.notifyDataSetChanged()
                 Log.d("MainActivity", "Popular comics fetched: ${popularKomikList.size}")
 

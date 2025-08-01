@@ -43,7 +43,7 @@ class Profile : AppCompatActivity() {
 
         recyclerViewBookmark = findViewById(R.id.recyclerViewBookmark)
 //        recyclerViewBookmark.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        recyclerViewBookmark.layoutManager = GridLayoutManager(this, 4)
+        recyclerViewBookmark.layoutManager = GridLayoutManager(this, 2)
         bookmarkAdapter = RecentAdapter(bookmarkedComics)
         recyclerViewBookmark.adapter = bookmarkAdapter
 

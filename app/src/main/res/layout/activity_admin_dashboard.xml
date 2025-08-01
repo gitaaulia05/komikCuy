@@ -20,7 +20,7 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_marginTop="10dp"
-            android:src="@drawable/aww"
+            android:src="@drawable/logopemob"
             android:scaleType="centerCrop" />
 
         <TextView
@@ -76,10 +76,9 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/adminComicRecycler"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="3"
+        android:layout_height="700dp"
         android:background="@color/medium_gray"
-        android:padding="8dp"
+        android:padding="2dp"
+        android:layout_marginBottom="24dp"
         android:clipToPadding="false" />
-
 </LinearLayout>
