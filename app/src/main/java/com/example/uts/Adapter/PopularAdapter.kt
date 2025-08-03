@@ -1,50 +1,90 @@
 package com.example.uts.Adapter
 
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.uts.DetailActivity
+import com.example.uts.Model.Chapter
 import com.example.uts.Model.PopularKomik
+import com.example.uts.Model.RecentKomik
 import com.example.uts.R
+import com.example.uts.SupabaseClientProvider
+import io.github.jan.supabase.postgrest.postgrest
+import kotlinx.coroutines.launch
 
-class PopularAdapter(private val popularList: List<PopularKomik>) :
-    RecyclerView.Adapter<PopularAdapter.ViewHolder>() {
+class PopularAdapter(private val listKomik: List<PopularKomik>) :
+    RecyclerView.Adapter<PopularAdapter.PopularViewHolder>() {
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val coverImage: ImageView = itemView.findViewById(R.id.coverImage)
-        val txtName: TextView = view.findViewById(R.id.Nama)
-//        val txtGenres: TextView = view.findViewById(R.id.Genre)
-//        val txtDesc: TextView = view.findViewById(R.id.Desc)
+    class PopularViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val image: ImageView = view.findViewById(R.id.image)
+        val name: TextView = view.findViewById(R.id.name)
+        val genre: TextView = view.findViewById(R.id.genre)
+        val chapter: TextView = view.findViewById(R.id.tvChapterCount)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    suspend fun getChapterCountForComic(comicId: Int): Int {
+        return try {
+            val chapters = SupabaseClientProvider.client
+                .postgrest["chapter"]
+                .select {
+                    filter {
+                        eq("id_komik", comicId)
+                    }
+                }
+                .decodeList<Chapter>()
+            chapters.size
+        } catch (e: Exception) {
+            e.printStackTrace()
+            0
+        }
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PopularViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_recent, parent, false)
-        return ViewHolder(view)
+            .inflate(R.layout.item_popular, parent, false)
+        return PopularViewHolder(view)
     }
 
-    override fun getItemCount(): Int = popularList.size
+    override fun onBindViewHolder(holder: PopularViewHolder, position: Int) {
+        val komik = listKomik[position]
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val comic = popularList[position]
-        holder.coverImage.setImageResource(comic.image)
-        holder.txtName.text = comic.name
-//        holder.txtGenres.text = comic.genre
-//        holder.txtDesc.text = comic.desc
+        Glide.with(holder.itemView.context)
+            .load(komik.image)
+            .into(holder.image)
+
+        holder.name.text = komik.name
+        holder.genre.text = komik.genre
+
+        if (holder.itemView.context is AppCompatActivity) {
+            (holder.itemView.context as AppCompatActivity).lifecycleScope.launch {
+                val chapterCount = getChapterCountForComic(komik.id_komik)
+                holder.chapter.text = "$chapterCount Chapter"
+            }
+        } else {
+            holder.chapter.text = "N/A Chapters"
+            Log.e("AdminComicAdapter", "Context is not AppCompatActivity, cannot use lifecycleScope")
+        }
 
         holder.itemView.setOnClickListener {
             val context = holder.itemView.context
             val intent = Intent(context, DetailActivity::class.java).apply {
-                putExtra("coverImage", comic.image)
-                putExtra("name", comic.name)
-                putExtra("genres", comic.genre)
-                putExtra("desc", comic.desc)
+                putExtra("id_komik", komik.id_komik)
+                putExtra("coverImage", komik.image)
+                putExtra("name", komik.name)
+                putExtra("genre", komik.genre)
+                putExtra("desc", komik.desc)
             }
             context.startActivity(intent)
         }
     }
+
+    override fun getItemCount(): Int = listKomik.size
 }

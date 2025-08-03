@@ -6,5 +6,6 @@ data class RecentKomik (
     val gambar_komik : String,
     val genre : String,
     val desc : String,
+    val is_popular: Boolean,
     val created_at: String? = null
 )

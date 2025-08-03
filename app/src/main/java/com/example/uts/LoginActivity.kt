@@ -1,4 +1,3 @@
-// File: /uts/LoginActivity.kt
 package com.example.uts
 
 import android.content.Intent
