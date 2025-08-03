@@ -35,6 +35,11 @@ android {
         }
     }
 
+    configurations.all {
+        resolutionStrategy {
+            force ("androidx.test.espresso:espresso-core:3.5.1")
+        }
+    }
     signingConfigs {
         getByName("debug") {
             storeFile = file("shared-debug.keystore")
